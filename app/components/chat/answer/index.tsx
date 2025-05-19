@@ -92,7 +92,7 @@ const Answer: FC<IAnswerProps> = ({
     return (
       <Tooltip
         selector={`user-feedback-${randomString(16)}`}
-        content={isLike ? '取消赞同' : '取消反对'}
+        content={isLike ? 'Agree' : 'Disagree'}
       >
         <div
           className={'relative box-border flex items-center justify-center h-7 w-7 p-0.5 rounded-lg bg-white cursor-pointer text-gray-500 hover:text-gray-800'}
@@ -194,7 +194,14 @@ const Answer: FC<IAnswerProps> = ({
                     <Markdown content={content} />
                   ))}
             </div>
-            <div className='absolute top-[-14px] right-[-14px] flex flex-row justify-end gap-1'>
+            <div className='absolute top-[39px] right-[-14px] flex flex-row justify-end gap-1'>
+              {/* {!feedbackDisabled && <button className="flex items-center justify-center w-6 h-6 rounded-md hover:bg-gray-100">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.3334 2.66666V5.99999H9.99999" stroke="#667085" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M2.66666 13.3333V9.99999H6.00001" stroke="#667085" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M3.34666 6.00001C3.49999 5.28224 3.82379 4.61773 4.28929 4.05547C4.7548 3.49321 5.34526 3.04889 6.01349 2.75931C6.68171 2.46973 7.40843 2.34245 8.13847 2.38632C8.86852 2.43019 9.57534 2.64386 10.2067 3.01334L13.3333 5.33334M2.66666 10.6667L5.79333 13C6.42469 13.3695 7.13151 13.5832 7.86156 13.627C8.5916 13.6709 9.31832 13.5436 9.98654 13.254C10.6548 12.9645 11.2452 12.5201 11.7107 11.9579C12.1762 11.3956 12.5 10.7311 12.6533 10.0133" stroke="#667085" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>} */}
               {!feedbackDisabled && !item.feedbackDisabled && renderItemOperation()}
               {/* User feedback must be displayed */}
               {!feedbackDisabled && renderFeedbackRating(feedback?.rating)}
