@@ -1,7 +1,6 @@
 import type { FC } from 'react'
-import classNames from 'classnames'
-import style from './style.module.css'
-
+import Image from 'next/image'
+import icon from './axisoft.gif'
 export type AppIconProps = {
   size?: 'xs' | 'tiny' | 'small' | 'medium' | 'large'
   rounded?: boolean
@@ -18,17 +17,8 @@ const AppIcon: FC<AppIconProps> = ({
 }) => {
   return (
     <span
-      className={classNames(
-        style.appIcon,
-        size !== 'medium' && style[size],
-        rounded && style.rounded,
-        className ?? '',
-      )}
-      style={{
-        background,
-      }}
     >
-      🤖
+      <Image src={icon} alt="app icon" width={80} height={25} />
     </span>
   )
 }

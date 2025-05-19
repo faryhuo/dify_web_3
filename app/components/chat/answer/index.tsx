@@ -3,18 +3,18 @@ import type { FC } from 'react'
 import React from 'react'
 import { HandThumbDownIcon, HandThumbUpIcon } from '@heroicons/react/24/outline'
 import { useTranslation } from 'react-i18next'
+import Image from 'next/image'
 import LoadingAnim from '../loading-anim'
 import type { FeedbackFunc } from '../type'
 import s from '../style.module.css'
 import ImageGallery from '../../base/image-gallery'
-import Thought from '../thought'
 import { randomString } from '@/utils/string'
 import type { ChatItem, MessageRating, VisionFile } from '@/types/app'
 import Tooltip from '@/app/components/base/tooltip'
 import WorkflowProcess from '@/app/components/workflow/workflow-process'
 import { Markdown } from '@/app/components/base/markdown'
 import type { Emoji } from '@/types/tools'
-
+import icon from '@/public/favicon.ico'
 const OperationBtn = ({ innerContent, onClick, className }: { innerContent: React.ReactNode; onClick?: () => void; className?: string }) => (
   <div
     className={`relative box-border flex items-center justify-center h-7 w-7 p-0.5 rounded-lg bg-white cursor-pointer text-gray-500 hover:text-gray-800 ${className ?? ''}`}
@@ -149,13 +149,13 @@ const Answer: FC<IAnswerProps> = ({
           )}
           {/* {item.tool} */}
           {/* perhaps not use tool */}
-          {!!item.tool && (
+          {/* {!!item.tool && (
             <Thought
               thought={item}
               allToolIcons={allToolIcons || {}}
               isFinished={!!item.observation || !isResponding}
             />
-          )}
+          )} */}
 
           {getImgs(item.message_files).length > 0 && (
             <ImageGallery srcs={getImgs(item.message_files).map(item => item.url)} />
@@ -168,12 +168,13 @@ const Answer: FC<IAnswerProps> = ({
   return (
     <div key={id}>
       <div className='flex items-start'>
-        <div className={`${s.answerIcon} w-10 h-10 shrink-0`}>
+        <div className={'w-10 h-10 shrink-0'}>
           {isResponding
             && <div className={s.typeingIcon}>
               <LoadingAnim type='avatar' />
             </div>
           }
+          <Image src={icon} alt="app icon" width={35} height={35} style={{ borderRadius: '50%' }} />
         </div>
         <div className={`${s.answerWrap}`}>
           <div className={`${s.answer} relative text-sm text-gray-900`}>
