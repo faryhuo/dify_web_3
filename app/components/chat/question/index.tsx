@@ -6,6 +6,7 @@ import s from '../style.module.css'
 
 import { Markdown } from '@/app/components/base/markdown'
 import ImageGallery from '@/app/components/base/image-gallery'
+import { text } from 'stream/consumers'
 
 type IQuestionProps = Pick<IChatItem, 'id' | 'content' | 'useCurrentUserAvatar'> & {
   imgSrcs?: string[]
@@ -23,7 +24,9 @@ const Question: FC<IQuestionProps> = ({ id, content, useCurrentUserAvatar, imgSr
             {imgSrcs && imgSrcs.length > 0 && (
               <ImageGallery srcs={imgSrcs} />
             )}
-            <Markdown content={content} />
+            <pre style={{ "whiteSpace": "pre-wrap", "wordWrap": "break-word", "maxWidth": "800px" }}>
+              {content}
+            </pre>
           </div>
         </div>
       </div>
