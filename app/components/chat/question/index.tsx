@@ -1,12 +1,10 @@
 'use client'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 import type { IChatItem } from '../type'
 import s from '../style.module.css'
 
-import { Markdown } from '@/app/components/base/markdown'
 import ImageGallery from '@/app/components/base/image-gallery'
-import { text } from 'stream/consumers'
 
 type IQuestionProps = Pick<IChatItem, 'id' | 'content' | 'useCurrentUserAvatar'> & {
   imgSrcs?: string[]
@@ -14,6 +12,80 @@ type IQuestionProps = Pick<IChatItem, 'id' | 'content' | 'useCurrentUserAvatar'>
 
 const Question: FC<IQuestionProps> = ({ id, content, useCurrentUserAvatar, imgSrcs }) => {
   const userName = ''
+  const [showFileContent, setShowFileContent] = useState(false)
+
+  const getFileContent = (content: string) => {
+    const match = content.match(/```user_upload_file_(.*?)\n([\s\S]*?)\n```/)
+    if (match) {
+      return {
+        fileName: match[1],
+        content: match[2],
+      }
+    }
+    return null
+  }
+
+  const fileContentObj = getFileContent(content)
+  const fileContent = fileContentObj ? fileContentObj.content : null
+  const fileName = fileContentObj ? fileContentObj.fileName : ''
+  const displayContent = fileContentObj ? content.replace(/```user_upload_file_.*?\n[\s\S]*?\n```\n\n\n/, '') : content
+
+  // Simple Modal component
+  const Modal: FC<{ open: boolean; onClose: () => void; children: React.ReactNode }> = ({ open, onClose, children }) => {
+    if (!open)
+      return null
+    return (
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+        }}
+        onClick={onClose}
+      >
+        <div
+          style={{
+            background: '#222',
+            color: '#fff',
+            padding: '24px',
+            borderRadius: '8px',
+            minWidth: '300px',
+            maxWidth: '80vw',
+            maxHeight: '80vh',
+            overflow: 'auto',
+            position: 'relative',
+          }}
+          onClick={e => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            style={{
+              position: 'absolute',
+              top: 8,
+              right: 8,
+              background: 'transparent',
+              border: 'none',
+              color: '#fff',
+              fontSize: '1.5rem',
+              cursor: 'pointer',
+            }}
+            aria-label="Close"
+          >
+            &times;
+          </button>
+          {children}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className='flex items-start justify-end' key={id}>
       <div>
@@ -24,8 +96,27 @@ const Question: FC<IQuestionProps> = ({ id, content, useCurrentUserAvatar, imgSr
             {imgSrcs && imgSrcs.length > 0 && (
               <ImageGallery srcs={imgSrcs} />
             )}
-            <pre style={{ "whiteSpace": "pre-wrap", "wordWrap": "break-word", "maxWidth": "800px" }}>
-              {content}
+            {fileContent && (
+              <div className='mb-2'>
+                <button
+                  className='flex items-center text-white hover:text-gray-200'
+                  onClick={() => setShowFileContent(true)}
+                >
+                  <svg className='w-5 h-5 mr-1' fill='currentColor' viewBox='0 0 20 20'>
+                    <path d='M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z' />
+                  </svg>
+                  <span className="text-black">{fileName ? `${fileName}` : ''}</span>
+                </button>
+                <Modal open={showFileContent} onClose={() => setShowFileContent(false)}>
+                  <div style={{ marginBottom: '12px', fontWeight: 'bold', fontSize: '1.1em' }}>{fileName}</div>
+                  <pre className='mt-2 p-2 bg-gray-700 text-white rounded' style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+                    {fileContent}
+                  </pre>
+                </Modal>
+              </div>
+            )}
+            <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word', maxWidth: '800px' }}>
+              {displayContent}
             </pre>
           </div>
         </div>

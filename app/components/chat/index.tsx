@@ -1,6 +1,6 @@
 'use client'
 import type { FC } from 'react'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import cn from 'classnames'
 import { useTranslation } from 'react-i18next'
 import Textarea from 'rc-textarea'
@@ -52,6 +52,7 @@ const Chat: FC<IChatProps> = ({
   const { t } = useTranslation()
   const { notify } = Toast
   const isUseInputMethod = useRef(false)
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([])
 
   const [query, setQuery] = React.useState('')
   const handleContentChange = (e: any) => {
@@ -85,20 +86,70 @@ const Chat: FC<IChatProps> = ({
     onClear,
   } = useImageFiles()
 
-  const handleSend = () => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setUploadedFiles(prev => [...prev, ...Array.from(e.target.files!)])
+      e.target.value = '' // reset input
+    }
+  }
+
+  const handleRemoveFile = (index: number) => {
+    setUploadedFiles(prev => prev.filter((_, i) => i !== index))
+  }
+
+  // Helper function to read file content
+  const readFileContent = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = e => resolve(e.target?.result as string)
+      reader.onerror = e => reject(e)
+      reader.readAsText(file)
+    })
+  }
+
+  const handleSend = async () => {
+    // Validate input
     if (!valid() || (checkCanSend && !checkCanSend()))
       return
-    onSend(query, files.filter(file => file.progress !== -1).map(fileItem => ({
-      type: 'image',
-      transfer_method: fileItem.type,
-      url: fileItem.url,
-      upload_file_id: fileItem.fileId,
-    })))
-    if (!files.find(item => item.type === TransferMethod.local_file && !item.fileId)) {
+
+    let query_str = query
+
+    // Handle file upload if present
+    if (uploadedFiles.length > 0) {
+      try {
+        const content = await readFileContent(uploadedFiles[0])
+        const user_local_file = `\`\`\`user_upload_file_${uploadedFiles[0].name}\n${content}\n\`\`\``
+        query_str = `${user_local_file}\n\n\n${query_str}`
+      }
+      catch (error) {
+        console.error('Error reading file:', error)
+      }
+    }
+
+    // Prepare image attachments
+    const imageAttachments = files
+      .filter(file => file.progress !== -1)
+      .map(fileItem => ({
+        type: 'image',
+        transfer_method: fileItem.type,
+        url: fileItem.url,
+        upload_file_id: fileItem.fileId,
+      }))
+
+    // Send message
+    onSend(query_str, imageAttachments)
+
+    // Clear form if no pending local file uploads
+    const hasPendingUploads = files.some(
+      item => item.type === TransferMethod.local_file && !item.fileId,
+    )
+
+    if (!hasPendingUploads) {
       if (files.length)
         onClear()
       if (!isResponding)
         setQuery('')
+      setUploadedFiles([])
     }
   }
 
@@ -196,6 +247,29 @@ const Chat: FC<IChatProps> = ({
                 onKeyDown={handleKeyDown}
                 autoSize
               />
+              <div className="flex items-center mt-2">
+                <label className="cursor-pointer flex items-center text-sm text-gray-600">
+                  <input
+                    type="file"
+                    multiple
+                    className="hidden"
+                    onChange={handleFileChange}
+                  />
+                  <span className="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200">上传文件</span>
+                </label>
+                <div className="flex flex-wrap ml-2">
+                  {uploadedFiles.map((file, idx) => (
+                    <div key={idx} className="flex items-center bg-gray-50 border rounded px-2 py-1 mr-2 mb-1 text-xs">
+                      <span className="mr-1">{file.name}</span>
+                      <button
+                        className="text-red-500 hover:text-red-700 ml-1"
+                        onClick={() => handleRemoveFile(idx)}
+                        type="button"
+                      >×</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
               <div className="absolute bottom-2 right-2 flex items-center h-8">
                 <div className={`${s.count} mr-4 h-5 leading-5 text-sm bg-gray-50 text-gray-500`}>{query.trim().length}</div>
                 <Tooltip
