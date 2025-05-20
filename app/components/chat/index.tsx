@@ -255,7 +255,21 @@ const Chat: FC<IChatProps> = ({
                     className="hidden"
                     onChange={handleFileChange}
                   />
-                  <span className="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200">上传文件</span>
+                  <span className="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200 hidden">上传文件</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6 text-gray-500 hover:text-gray-700"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16.24 7.76a5 5 0 00-7.07 0l-5.66 5.66a5 5 0 007.07 7.07l7.07-7.07a3 3 0 00-4.24-4.24l-6.36 6.36"
+                    />
+                  </svg>
                 </label>
                 <div className="flex flex-wrap ml-2">
                   {uploadedFiles.map((file, idx) => (
