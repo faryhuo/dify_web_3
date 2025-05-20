@@ -6,6 +6,9 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
+  "terminal.integrated.env.windows": {
+    "PATH": "D:\\\\NodeJs_Npm\\\\node-v20.10.0-win-x64;${env:PATH}"
+  },
   "[python]": {
     "editor.formatOnType": true
   },

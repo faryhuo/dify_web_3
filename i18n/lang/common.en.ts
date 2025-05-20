@@ -13,6 +13,7 @@ const translation = {
     refresh: 'Restart',
     search: 'Search',
     send: 'Send',
+    stop: 'Stop Response',
     lineBreak: 'Line break',
     like: 'like',
     dislike: 'dislike',

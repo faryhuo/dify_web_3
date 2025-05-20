@@ -22,16 +22,16 @@ const Button: FC<IButtonProps> = ({
   let style = 'cursor-pointer'
   switch (type) {
     case 'primary':
-      style = (disabled || loading) ? 'bg-primary-600/75 cursor-not-allowed text-white' : 'bg-primary-600 hover:bg-primary-600/75 hover:shadow-md cursor-pointer text-white hover:shadow-sm'
+      style = (disabled || loading) ? 'bg-primary-600/75 cursor-not-allowed text-white' : 'bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white shadow-sm hover:shadow-md transition-all duration-200 ease-in-out'
       break
     default:
-      style = disabled ? 'border-solid border border-gray-200 bg-gray-200 cursor-not-allowed text-gray-800' : 'border-solid border border-gray-200 cursor-pointer text-gray-500 hover:bg-white hover:shadow-sm hover:border-gray-300'
+      style = disabled ? 'border-solid border border-gray-200 bg-gray-200 cursor-not-allowed text-gray-800' : 'border-solid border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-200 ease-in-out'
       break
   }
 
   return (
     <div
-      className={`flex justify-center items-center content-center h-9 leading-5 rounded-lg px-4 py-2 text-base ${style} ${className && className}`}
+      className={`flex justify-center items-center content-center h-9 leading-5 rounded-lg px-4 py-2 text-base font-medium ${style} ${className && className}`}
       onClick={disabled ? undefined : onClick}
     >
       {children}

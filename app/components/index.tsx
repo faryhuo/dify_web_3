@@ -642,14 +642,14 @@ const Main: FC<IMainProps> = () => {
     return <Loading type='app' />
 
   return (
-    <div className='bg-gray-100'>
+    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-gray-100'>
       <Header
         title={APP_INFO.title}
         isMobile={isMobile}
         onShowSideBar={showSidebar}
         onCreateNewChat={() => handleConversationIdChange('-1')}
       />
-      <div className="flex rounded-t-2xl bg-white overflow-hidden">
+      <div className="flex rounded-t-2xl bg-white/80 backdrop-blur-sm shadow-lg overflow-hidden transition-all duration-300">
         {/* sidebar */}
         {!isMobile && renderSidebar()}
         {isMobile && isShowSidebar && (
@@ -678,8 +678,12 @@ const Main: FC<IMainProps> = () => {
 
           {
             hasSetInputs && (
-              <div className='relative grow h-[200px] pc:w-[794px] max-w-full mobile:w-full pb-[66px] mx-auto mb-3.5 overflow-hidden'>
-                <div className='h-full overflow-y-auto' ref={chatListDomRef}>
+              <div className='relative grow h-[200px] pc:w-[994px] max-w-full mobile:w-full pb-[66px] mb-3.5 overflow-hidden transition-all duration-300'
+                style={{
+                  marginLeft: '200px',
+                  //  backgroundImage: 'linear-gradient(180deg, rgba(249, 250, 251, .9), rgba(242, 244, 247, .9) 90.48%)' 
+                }}>
+                <div className='h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400 transition-all duration-300' ref={chatListDomRef}>
                   <Chat
                     chatList={chatList}
                     onSend={handleSend}

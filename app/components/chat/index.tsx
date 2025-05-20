@@ -33,6 +33,7 @@ export type IChatProps = {
   isResponding?: boolean
   controlClearQuery?: number
   visionConfig?: VisionSettings
+  onStop?: () => void
 }
 
 const Chat: FC<IChatProps> = ({
@@ -46,6 +47,7 @@ const Chat: FC<IChatProps> = ({
   isResponding,
   controlClearQuery,
   visionConfig,
+  onStop,
 }) => {
   const { t } = useTranslation()
   const { notify } = Toast
@@ -146,6 +148,19 @@ const Chat: FC<IChatProps> = ({
       {
         !isHideSendInput && (
           <div className={cn(!feedbackDisabled && '!left-3.5 !right-3.5', 'absolute z-10 bottom-0 left-0 right-0')}>
+            {isResponding && (
+              <div className="flex justify-center mb-2">
+                <button
+                  className="flex items-center px-4 py-2 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-lg transition-colors duration-200"
+                  onClick={onStop}
+                >
+                  <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="6" y="6" width="12" height="12" fill="currentColor" />
+                  </svg>
+                  {t('common.operation.stop')}
+                </button>
+              </div>
+            )}
             <div className='p-[5.5px] max-h-[150px] bg-white border-[1.5px] border-gray-200 rounded-xl overflow-y-auto'>
               {
                 visionConfig?.enabled && (

@@ -177,8 +177,8 @@ const Answer: FC<IAnswerProps> = ({
           <Image src={icon} alt="app icon" width={35} height={35} style={{ borderRadius: '50%' }} />
         </div>
         <div className={`${s.answerWrap}`}>
-          <div className={`${s.answer} relative text-sm text-gray-900`}>
-            <div className={`ml-2 py-3 px-4 bg-gray-100 rounded-tr-2xl rounded-b-2xl ${workflowProcess && 'min-w-[480px]'}`}>
+          <div className={`${s.answer} relative=text-gray-900`}>
+            <div style={{ fontSize: '15px', fontWeight: 400, padding: '30px' }} className={`ml-2 py-3 px-4 rounded-tr-2xl rounded-b-2xl shadow-sm hover:shadow-md transition-all duration-200 ease-in-out bg-white/90 backdrop-blur-sm border border-gray-100 ${workflowProcess && 'min-w-[480px]'}`}>
               {workflowProcess && (
                 <WorkflowProcess data={workflowProcess} hideInfo />
               )}
@@ -202,9 +202,6 @@ const Answer: FC<IAnswerProps> = ({
                   <path d="M3.34666 6.00001C3.49999 5.28224 3.82379 4.61773 4.28929 4.05547C4.7548 3.49321 5.34526 3.04889 6.01349 2.75931C6.68171 2.46973 7.40843 2.34245 8.13847 2.38632C8.86852 2.43019 9.57534 2.64386 10.2067 3.01334L13.3333 5.33334M2.66666 10.6667L5.79333 13C6.42469 13.3695 7.13151 13.5832 7.86156 13.627C8.5916 13.6709 9.31832 13.5436 9.98654 13.254C10.6548 12.9645 11.2452 12.5201 11.7107 11.9579C12.1762 11.3956 12.5 10.7311 12.6533 10.0133" stroke="#667085" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>} */}
-              {!feedbackDisabled && !item.feedbackDisabled && renderItemOperation()}
-              {/* User feedback must be displayed */}
-              {!feedbackDisabled && renderFeedbackRating(feedback?.rating)}
             </div>
           </div>
         </div>
