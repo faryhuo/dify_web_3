@@ -67,7 +67,7 @@ const Demo: React.FC<{
         );
 
         return (
-            <Flex style={{ minHeight: 250 }} align="flex-end">
+            <Flex align="flex-end">
                 <Sender
                     loading={loading}
                     ref={senderRef}
