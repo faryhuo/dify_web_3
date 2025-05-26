@@ -39,6 +39,7 @@ const Demo: React.FC<{
                 styles={{
                     content: {
                         padding: 0,
+                        backgroundColor: '#fff',
                     },
                 }}
             >
@@ -49,6 +50,11 @@ const Demo: React.FC<{
                     onChange={({ fileList }) => {
                         setItems(fileList);
                         onFileChange?.(fileList);
+                    }}
+                    styles={{
+                        item: {
+                            backgroundColor: '#fff',
+                        },
                     }}
                     placeholder={(type) =>
                         type === 'drop'
@@ -67,7 +73,7 @@ const Demo: React.FC<{
         );
 
         return (
-            <Flex align="flex-end">
+            <Flex align="flex-end" style={{ backgroundColor: '#fff' }}>
                 <Sender
                     loading={loading}
                     ref={senderRef}

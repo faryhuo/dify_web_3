@@ -150,6 +150,7 @@ const Chat: FC<IChatProps> = ({
             />
           )
         })}
+        <div className='split-wrapper' style={{ height: 20 }}></div>
       </div>
       {
         !isHideSendInput && (

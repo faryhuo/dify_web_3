@@ -178,7 +178,7 @@ const Answer: FC<IAnswerProps> = ({
         </div>
         <div className={`${s.answerWrap}`}>
           <div className={`${s.answer} relative=text-gray-900`}>
-            <div style={{ fontSize: '15px', fontWeight: 400, padding: '30px' }} className={`ml-2 py-3 px-4 rounded-tr-2xl rounded-b-2xl shadow-sm hover:shadow-md transition-all duration-200 ease-in-out bg-white/90 backdrop-blur-sm border border-gray-100 ${workflowProcess && 'min-w-[480px]'}`}>
+            <div style={{ fontSize: '15px', fontWeight: 400, padding: '0' }} className={`ml-2 py-3 px-4 rounded-tr-2xl rounded-b-2xl shadow-sm hover:shadow-md transition-all duration-200 ease-in-out bg-white/90 backdrop-blur-sm border border-gray-100 ${workflowProcess && 'min-w-[480px]'}`}>
               {workflowProcess && (
                 <WorkflowProcess data={workflowProcess} hideInfo />
               )}
