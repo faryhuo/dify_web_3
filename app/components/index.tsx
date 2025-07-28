@@ -630,7 +630,7 @@ const Main: FC<IMainProps> = () => {
         list={conversationList}
         onCurrentIdChange={handleConversationIdChange}
         currentId={currConversationId}
-        copyRight={APP_INFO.copyright || APP_INFO.title}
+        copyRight={" "}
       />
     )
   }
@@ -643,12 +643,12 @@ const Main: FC<IMainProps> = () => {
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-gray-50 to-gray-100'>
-      <Header
+      {/* <Header
         title={APP_INFO.title}
         isMobile={isMobile}
         onShowSideBar={showSidebar}
         onCreateNewChat={() => handleConversationIdChange('-1')}
-      />
+      /> */}
       <div className="flex rounded-t-2xl bg-white/80 backdrop-blur-sm shadow-lg overflow-hidden transition-all duration-300">
         {/* sidebar */}
         {!isMobile && renderSidebar()}
@@ -663,7 +663,7 @@ const Main: FC<IMainProps> = () => {
           </div>
         )}
         {/* main */}
-        <div className='flex-grow flex flex-col h-[calc(100vh_-_3rem)] overflow-y-auto'>
+        <div className='flex-grow flex flex-col h-[calc(100vh)] overflow-y-auto'>
           <ConfigSence
             conversationName={conversationName}
             hasSetInputs={hasSetInputs}

@@ -378,10 +378,10 @@ const Welcome: FC<IWelcomeProps> = ({
               </div>
               : <div>
               </div>}
-            <a className='flex items-center pr-3 space-x-3' href="https://www.axisoft.com/" target="_blank">
+            {/* <a className='flex items-center pr-3 space-x-3' href="https://www.axisoft.com/" target="_blank">
               <span className='uppercase'>{t('app.chat.powerBy')}</span>
               <Image src={logo} alt="logo" width={80} height={25} />
-            </a>
+            </a> */}
           </div>
         )}
       </div>

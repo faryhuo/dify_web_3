@@ -159,7 +159,8 @@ const Chat: FC<IChatProps> = ({
               <div className="flex justify-center mb-2" style={{
                 position: 'fixed',
                 bottom: '100px',
-                left: '45%',
+                left: '40%',
+                maxWidth: '900px',
               }}>
                 <button
                   className="flex items-center px-4 py-2 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-lg transition-colors duration-200"

@@ -5,7 +5,7 @@ export const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`
 export const APP_INFO: AppInfo = {
   title: 'Avaloq AI Chatbot',
   description: '',
-  copyright: 'Axisoft',
+  copyright: ' ',
   privacy_policy: '',
   default_language: 'en',
 }
