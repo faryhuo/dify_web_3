@@ -50,13 +50,13 @@ const Main: FC<IMainProps> = () => {
   })
 
   useEffect(() => {
-    window.parent.postMessage({ messageType: 'iframeReady' }, '*')
     if (APP_INFO?.title)
       document.title = `${APP_INFO.title} - Powered by Axisoft`
   }, [APP_INFO?.title])
 
   // onData change thought (the produce obj). https://github.com/immerjs/immer/issues/576
   useEffect(() => {
+    window.parent.postMessage({ messageType: 'iframeReady' }, '*')
     setAutoFreeze(false)
     return () => {
       setAutoFreeze(true)
