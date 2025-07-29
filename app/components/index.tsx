@@ -50,6 +50,7 @@ const Main: FC<IMainProps> = () => {
   })
 
   useEffect(() => {
+    window.parent.postMessage({ messageType: 'iframeReady' }, '*')
     if (APP_INFO?.title)
       document.title = `${APP_INFO.title} - Powered by Axisoft`
   }, [APP_INFO?.title])
