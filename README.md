@@ -81,6 +81,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 3.1 - 7faf3acdcfa6
 
-docker build . -t webapp-conversation:3.2
+docker build . -t webapp-conversation:3.3
 
-docker run -p 3000:3000 webapp-conversation:3.2
+docker run -p 3000:3000 webapp-conversation:3.3
