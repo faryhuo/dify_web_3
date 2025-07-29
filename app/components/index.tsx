@@ -219,6 +219,7 @@ const Main: FC<IMainProps> = () => {
 
   // init
   useEffect(() => {
+    window.parent.postMessage({ messageType: 'iframeReady' }, '*')
     if (!hasSetAppConfig) {
       setAppUnavailable(true)
       return
