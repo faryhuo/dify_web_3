@@ -13,7 +13,7 @@ export const APP_INFO: AppInfo = {
 export const isShowPrompt = false
 export const promptTemplate = 'You are a Avaloq helper'
 
-export const API_PREFIX = '/api'
+export const API_PREFIX = '/aichat/api/'
 
 export const LOCALE_COOKIE_NAME = 'locale'
 
